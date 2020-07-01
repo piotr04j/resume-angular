@@ -2,10 +2,10 @@ image: node:12.18.2-stretch
 
 pipelines:
   default:
-    - caches:
-        - node
     - step:
         name: Test
+        caches:
+          - node
         script:
           - npm install
           - npm test test --single-run
