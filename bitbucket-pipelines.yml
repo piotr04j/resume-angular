@@ -8,7 +8,7 @@ pipelines:
           - node
         script:
           - npm install
-          - npm test test --single-run
+          - npm test --single-run
           - npm run build
 
   deploy:
