@@ -1,7 +1,7 @@
 image: node:12.18.2-stretch
 
 pipelines:
-  default:
+  test:
     - step:
         name: Test
         caches:
