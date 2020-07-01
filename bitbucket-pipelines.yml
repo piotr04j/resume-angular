@@ -2,17 +2,23 @@ image: node:12.18.2-stretch
 
 pipelines:
   default:
+    - caches:
+        - node
     - step:
         name: Test
         script:
-          - npm install && npm test && npm run build
+          - npm install
+          - npm test test --single-run
+          - npm run build
 
   deploy:
     - step:
         name: Deploy to Firebase
         deployment: production
         script:
-          - npm install && npm test && npm run build
+          - npm install
+          - npm test test --single-run
+          - npm run build
           - pipe: atlassian/firebase-deploy:0.3.8
             variables:
               FIREBASE_TOKEN: $FIREBASE_TOKEN
