@@ -8,7 +8,7 @@ pipelines:
           - node
         script:
           - npm install
-          - npm test --single-run
+          - npm test
           - npm run build
 
   deploy:
@@ -17,7 +17,7 @@ pipelines:
         deployment: production
         script:
           - npm install
-          - npm test test --single-run
+          - npm test test
           - npm run build
           - pipe: atlassian/firebase-deploy:0.3.8
             variables:
