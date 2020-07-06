@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-signup',
@@ -12,12 +13,15 @@ export class SignupComponent implements OnInit {
     password: new FormControl('')
   })
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
     console.log(this.signupForm)
+    this.authService.signUp(this.signupForm.value.username, this.signupForm.value.password).subscribe((date) => {
+      console.log(data)
+    })
   }
 }
