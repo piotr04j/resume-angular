@@ -9,7 +9,7 @@ import {AuthService} from "../auth.service";
 })
 export class SignupComponent implements OnInit {
   signupForm = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl('')
   })
 
@@ -19,9 +19,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm)
-    this.authService.signUp(this.signupForm.value.username, this.signupForm.value.password).subscribe((date) => {
-      console.log(data)
+    const { email, password } = this.signupForm.value;
+    this.authService.signUp({email, password}).subscribe((res) => {
+      console.log(res)
     })
   }
 }
