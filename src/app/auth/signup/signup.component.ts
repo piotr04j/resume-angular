@@ -9,8 +9,8 @@ import {AuthService} from "../auth.service";
 })
 export class SignupComponent implements OnInit {
   signupForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+    email: new FormControl('', []),
+    password: new FormControl('', [])
   })
 
   constructor(private authService: AuthService) { }

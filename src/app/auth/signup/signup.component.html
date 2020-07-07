@@ -1,12 +1,6 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <label>
-        Email:
-        <input type="email" formControlName="email">
-    </label>
-    <label>
-        Password:
-        <input type="password" formControlName="password">
-    </label>
+    <app-input inputType="email" [inputFormControlName]="signupForm.controls.email" label="Email"></app-input>
+    <app-input inputType="password" [inputFormControlName]="signupForm.controls.password" label="Password"></app-input>
     <button type="submit">Submit</button>
 </form>
 
