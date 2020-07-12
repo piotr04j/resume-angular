@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import {defer, of} from "rxjs";
+import {defer, Observable, of, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {TestBed} from "@angular/core/testing";
 
@@ -15,11 +15,6 @@ describe('AuthService', () => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
     authService = new AuthService(<any> httpClientSpy);
   });
-
-  afterEach(() => {
-    TestBed.resetTestingModule();
-  });
-
 
   it('should send request', () => {
     const result = {
@@ -43,13 +38,13 @@ describe('AuthService', () => {
       status: 400,
     });
 
-    httpClientSpy.post.and.returnValue(asyncError(errorResponse));
+    httpClientSpy.post.and.returnValue(throwError(errorResponse));
     authService.signUp({email: 'test@wp.pl', password: 'qwe123'}).subscribe(
-        res => fail('a'),
-        error  => {
-          console.log('ss')
-          expect(error.status).toBe('test 404 error');
-        }
+      res => fail('should not execute this line'),
+      errRes  => {
+        expect(errRes.status).toBe(400);
+        expect(errRes.error.message).toBe('EMAIL_EXISTS');
+      }
     )
   })
 });
