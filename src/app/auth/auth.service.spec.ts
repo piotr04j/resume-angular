@@ -1,11 +1,7 @@
 import { AuthService } from './auth.service';
-import {defer, Observable, of, throwError} from "rxjs";
+import {of, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {TestBed} from "@angular/core/testing";
 
-export function asyncError<T>(errorObject: any) {
-  return defer(() => Promise.reject(errorObject));
-}
 
 describe('AuthService', () => {
   let authService: AuthService;
