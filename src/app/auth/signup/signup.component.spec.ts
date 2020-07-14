@@ -1,24 +1,38 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SignupComponent } from './signup.component';
-import {AuthService} from "../auth.service";
-import {Component} from "@angular/core";
-import {ReactiveFormsModule} from "@angular/forms";
+import {AuthService, singupResponse} from "../auth.service";
+import {Component, Input} from "@angular/core";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {Observable, of} from "rxjs";
+import {User} from "../../../models/User";
 
 @Component({selector: 'app-input', template: ''})
-class InputComponent {}
+class InputComponent {
+  @Input() inputFormControlName: FormControl
+}
 
-describe('SignupComponent', () => {
+const email = 'test@gmail.com';
+const res: singupResponse =  {
+  "idToken": '123456',
+  email,
+  "refreshToken": '654321',
+  "expiresIn": '3600',
+};
+const authServiceStub = {
+  signUp(user: User): Observable<singupResponse> {
+    return of(res)
+  }
+};
+
+describe('SignupComponent tests', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
-  let mockAuthService = { signUp: () =>{}};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SignupComponent, InputComponent ],
-      imports: [ ReactiveFormsModule],
-      providers: [{ provide: AuthService, useValue: mockAuthService }]
-
+      imports: [ ReactiveFormsModule ],
+      providers: [{ provide: AuthService, useValue: authServiceStub }]
     })
     .compileComponents();
   }));
@@ -27,13 +41,16 @@ describe('SignupComponent', () => {
     fixture = TestBed.createComponent(SignupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
   });
 
   it('should render form', () => {
-    component.signupForm.controls['email'].setValue( 'test@wp.pl')
-    component.signupForm.controls['password'].setValue( 'asb123')
+    const signUp = spyOn(authServiceStub, 'signUp').and.returnValue(of(res));
+    component.signupForm.controls['email'].setValue(email);
+    component.signupForm.controls['password'].setValue( 'asb123');
     const button = fixture.nativeElement.querySelector('button');
     button.click()
-    expect(component.signupForm.value).toBe('sss')
+    expect(signUp).toHaveBeenCalledTimes(1);
+    expect(signUp).toHaveBeenCalledWith({email, password: 'asb123'});
   });
 });
