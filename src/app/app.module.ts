@@ -5,12 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AuthModule} from "./auth/auth.module";
 import {HttpClientModule} from "@angular/common/http";
-import { InputComponent } from './shared/input/input.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { HomeComponent } from './home/home/home.component';
+import { MenuComponent } from './home/menu/menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
