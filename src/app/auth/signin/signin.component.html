@@ -1,0 +1,6 @@
+<form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <app-input inputType="email" [inputFormControlName]="signinForm.controls.email" label="Email"></app-input>
+    <app-input inputType="password" [inputFormControlName]="signinForm.controls.password" label="Password"></app-input>
+    <button type="submit">Submit</button>
+</form>
+
