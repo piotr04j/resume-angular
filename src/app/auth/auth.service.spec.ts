@@ -46,10 +46,12 @@ describe('AuthService', () => {
 
   it('should send signin request', () => {
     const result = {
-      "idToken": `123`,
+      "idToken": '123456',
       "email": 'test@wp.pl',
-      "refreshToken": `123asd`,
-      "expiresIn": `3600`,
+      "refreshToken": '654321',
+      "expiresIn": '3600',
+      "localId":  '1231',
+      "registered": true
     }
     httpClientSpy.post.and.returnValue(of(result));
     authService.signIn({email: 'test@wp.pl', password: 'qwe123'}).subscribe(
