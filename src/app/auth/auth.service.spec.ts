@@ -12,7 +12,7 @@ describe('AuthService', () => {
     authService = new AuthService(<any> httpClientSpy);
   });
 
-  it('should send request', () => {
+  it('should send signup request', () => {
     const result = {
       "idToken": `123`,
       "email": 'test@wp.pl',
@@ -43,4 +43,20 @@ describe('AuthService', () => {
       }
     )
   })
+
+  it('should send signin request', () => {
+    const result = {
+      "idToken": `123`,
+      "email": 'test@wp.pl',
+      "refreshToken": `123asd`,
+      "expiresIn": `3600`,
+    }
+    httpClientSpy.post.and.returnValue(of(result));
+    authService.signIn({email: 'test@wp.pl', password: 'qwe123'}).subscribe(
+        res => expect(res).toEqual(result, 'test'),
+        fail
+    )
+
+    expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
+  });
 });
