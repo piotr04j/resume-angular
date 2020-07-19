@@ -1,4 +1,24 @@
-<label>
-    {{label}}
-    <input [type]="inputType" [formControl]="inputFormControlName" />
-</label>
+<div class="field">
+    <label class="label">{{label}}</label>
+    <div class="control">
+        <input [type]="inputType" [formControl]="control" class="input" />
+        <div *ngIf="showErrors()">
+            <p *ngIf="control.errors.required" class="help is-danger">
+                This field is required!
+            </p>
+            <p *ngIf="control.errors.minlength" class="help is-danger">
+                Value you entered is
+                {{ control.errors.minlength.actualLength }}
+                characters long, but it must be at aleast
+                {{ control.errors.minlength.requiredLength }}
+                characters
+            </p>
+            <p *ngIf="control.errors.email" class="help is-danger">
+                Enter a valid email!
+            </p>
+            <p *ngIf="control.errors.pattern" class="help is-danger">
+                Invalid format! Password has to contain digits, letters and special characters!
+            </p>
+        </div>
+    </div>
+</div>

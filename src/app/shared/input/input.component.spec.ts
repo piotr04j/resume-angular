@@ -15,7 +15,7 @@ describe('InputComponent', () => {
     .compileComponents();
     inputComponentFixture= TestBed.createComponent(InputComponent);
     inputComponent = inputComponentFixture.componentInstance;
-    inputComponent.inputFormControlName = new FormControl('')
+    inputComponent.control = new FormControl('')
     inputComponent.inputType = 'email';
     inputComponent.label = 'Username';
     inputComponentFixture.detectChanges();
