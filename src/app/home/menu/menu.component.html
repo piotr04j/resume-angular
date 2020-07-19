@@ -47,10 +47,10 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-primary" routerLink="/signup"  *ngIf="!signedIn">
+                    <a class="button" routerLink="/signup"  routerLinkActive="is-primary" *ngIf="!signedIn">
                         Sign up
                     </a>
-                    <a class="button is-light" routerLink="/signin" *ngIf="!signedIn">
+                    <a class="button"  routerLink="/signin"  routerLinkActive="is-primary" *ngIf="!signedIn">
                         Sign in
                     </a>
                     <a class="button is-danger" routerLink="/signout" *ngIf="signedIn">
