@@ -1,6 +1,17 @@
-<form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-    <app-input inputType="email" [inputFormControlName]="signinForm.controls.email" label="Email"></app-input>
-    <app-input inputType="password" [inputFormControlName]="signinForm.controls.password" label="Password"></app-input>
-    <button type="submit">Submit</button>
-</form>
+<div class="columns is-centered is-two-fifths form-container">
+    <div class="content is-medium">
+        <h1>Sign in</h1>
+    </div>
+</div>
+<div class="columns is-centered is-two-fifths form-container">
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class=" is-half is-centered">
+        <app-input inputType="email" [control]="signinForm.controls.email" label="Email"></app-input>
+        <app-input inputType="password" [control]="signinForm.controls.password" label="Password"></app-input>
+        <div class="field">
+            <div class="control">
+                <button class="button is-link" type="submit" [disabled]="signinForm.invalid">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 

@@ -1,6 +1,22 @@
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <app-input inputType="email" [inputFormControlName]="signupForm.controls.email" label="Email"></app-input>
-    <app-input inputType="password" [inputFormControlName]="signupForm.controls.password" label="Password"></app-input>
-    <button type="submit">Submit</button>
-</form>
-
+<div class="columns is-centered is-two-fifths form-container">
+    <div class="content is-medium">
+        <h1>Sign up</h1>
+    </div>
+</div>
+<div class="columns is-centered is-two-fifths form-container">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <app-input inputType="email" [control]="signupForm.controls.email" label="Email"></app-input>
+        <app-input inputType="password" [control]="signupForm.controls.password" label="Password"></app-input>
+        <app-input inputType="password" [control]="signupForm.controls.passwordConfirmation" label="Password confirmation"></app-input>
+        <p *ngIf="signupForm.controls.password.touched && signupForm.controls.passwordConfirmation.touched && signupForm.errors && signupForm.errors.passwordsDontMatch"
+           class="help is-danger"
+        >
+            Passwords don't match!
+        </p>
+        <div class="field">
+            <div class="control">
+                <button class="button is-link" type="submit" [disabled]="signupForm.invalid" >Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
