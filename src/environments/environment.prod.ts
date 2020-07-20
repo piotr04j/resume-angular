@@ -1,6 +1,4 @@
-import {keys} from "./keys";
-
 export const environment = {
   production: true,
-  authFirebaseKey: keys.productionFirebaseAuth
+  authFirebaseKey: "$FIREBASE_AUTH_API_KEY"
 };
