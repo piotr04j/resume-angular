@@ -47,4 +47,3 @@ Thumbs.db
 
 #envs
 /src/environments/keys.ts
-/src/environments/environment.ts

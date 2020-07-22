@@ -29,11 +29,10 @@ export class AuthService {
   signedIn$ = new BehaviorSubject(null)
 
   constructor(private httpClient: HttpClient ) {
+    console.log(environment)
   }
 
   signUp(user: User) {
-    console.log(environment)
-
     return this.httpClient.post<singupResponse>(this.baseUrl + 'signUp?key=' + environment.authFirebaseKey, { ...user}).pipe(
       tap(() => {
           this.signedIn$.next(true);
