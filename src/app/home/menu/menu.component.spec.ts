@@ -4,7 +4,7 @@ import {AuthService, singupResponse} from "../../auth/auth.service";
 import {Observable, of} from "rxjs";
 
 const authServiceStub = {
-  signedIn$: of(true) check this solution
+  signedIn$: of(true)
 };
 
 describe('MenuComponent', () => {
