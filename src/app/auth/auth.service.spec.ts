@@ -6,10 +6,15 @@ import {HttpErrorResponse} from "@angular/common/http";
 describe('AuthService', () => {
   let authService: AuthService;
   let httpClientSpy: { post: jasmine.Spy };
+  let environment: any;
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
     authService = new AuthService(<any> httpClientSpy);
+    environment = {
+      production: false,
+      authFirebaseKey: 'something'
+    }
   });
 
   it('should send signup request', () => {
