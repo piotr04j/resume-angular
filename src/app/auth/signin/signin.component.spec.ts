@@ -9,7 +9,7 @@ import {Component, Input} from "@angular/core";
 
 @Component({selector: 'app-input', template: ''})
 class InputComponent {
-  @Input() inputFormControlName: FormControl
+  @Input() control: FormControl
 }
 const email = 'test@gmail.com';
 const res: singinResponse =  {
@@ -48,10 +48,11 @@ describe('SigninComponent', () => {
   it('should render form', () => {
     const signIn = spyOn(authServiceStub, 'signIn').and.returnValue(of(res));
     component.signinForm.controls['email'].setValue(email);
-    component.signinForm.controls['password'].setValue( 'asb123');
+    component.signinForm.controls['password'].setValue( 'asb123@#');
+    fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
     button.click()
     expect(signIn).toHaveBeenCalledTimes(1);
-    expect(signIn).toHaveBeenCalledWith({email, password: 'asb123'});
+    expect(signIn).toHaveBeenCalledWith({email, password: 'asb123@#'});
   });
 });

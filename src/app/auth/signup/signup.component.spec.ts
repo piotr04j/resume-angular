@@ -8,7 +8,7 @@ import {User} from "../../../models/User";
 
 @Component({selector: 'app-input', template: ''})
 class InputComponent {
-  @Input() inputFormControlName: FormControl
+  @Input() control: FormControl
 }
 
 const email = 'test@gmail.com';
@@ -41,16 +41,17 @@ describe('SignupComponent tests', () => {
     fixture = TestBed.createComponent(SignupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
   });
 
   it('should render form', () => {
     const signUp = spyOn(authServiceStub, 'signUp').and.returnValue(of(res));
     component.signupForm.controls['email'].setValue(email);
-    component.signupForm.controls['password'].setValue( 'asb123');
+    component.signupForm.controls['password'].setValue( 'asb123@@');
+    component.signupForm.controls['passwordConfirmation'].setValue( 'asb123@@');
+    fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
     button.click()
     expect(signUp).toHaveBeenCalledTimes(1);
-    expect(signUp).toHaveBeenCalledWith({email, password: 'asb123'});
+    expect(signUp).toHaveBeenCalledWith({email, password: 'asb123@@'});
   });
 });
