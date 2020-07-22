@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment.prod";
+import {environment} from "../../environments/environment";
 import {User} from "../../models/User";
 import {BehaviorSubject} from "rxjs";
 import {tap} from "rxjs/operators";
@@ -28,7 +28,9 @@ export class AuthService {
   private baseUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:';
   signedIn$ = new BehaviorSubject(null)
 
-  constructor(private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient ) {
+    console.log(environment)
+  }
 
   signUp(user: User) {
     return this.httpClient.post<singupResponse>(this.baseUrl + 'signUp?key=' + environment.authFirebaseKey, { ...user}).pipe(
