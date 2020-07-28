@@ -7,6 +7,14 @@
     <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class=" is-half is-centered">
         <app-input inputType="email" [control]="signinForm.controls.email" label="Email"></app-input>
         <app-input inputType="password" [control]="signinForm.controls.password" label="Password"></app-input>
+        <div *ngIf="signinForm.errors">
+            <p *ngIf="signinForm.errors.invalidCredential" class="help is-danger">
+                Email or password is incorrect!
+            </p>
+            <p *ngIf="signinForm.errors.unknownError" class="help is-danger">
+                We have some problems! Please try again or contact with administrator!
+            </p>
+        </div>
         <div class="field">
             <div class="control">
                 <button class="button is-link" type="submit" [disabled]="signinForm.invalid">Submit</button>
