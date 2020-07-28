@@ -11,8 +11,6 @@ export class MatchPassword implements Validator {
             return null;
         }
 
-        console.log(formGroup)
-
         return { passwordsDontMatch: true};
     }
 }

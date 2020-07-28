@@ -29,7 +29,6 @@ export class AuthService {
   signedIn$ = new BehaviorSubject(null)
 
   constructor(private httpClient: HttpClient ) {
-    console.log(environment)
   }
 
   signUp(user: User) {
@@ -54,3 +53,4 @@ export class AuthService {
     this.signedIn$.next(false)
   }
 }
+
