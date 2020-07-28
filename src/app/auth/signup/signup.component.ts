@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {MatchPassword} from "../validators/match-password";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +32,7 @@ export class SignupComponent implements OnInit {
     }
 )
 
-  constructor(private authService: AuthService, private matchPassword: MatchPassword) { }
+  constructor(private authService: AuthService, private matchPassword: MatchPassword, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -42,8 +43,15 @@ export class SignupComponent implements OnInit {
     }
 
     const { email, password } = this.signupForm.value;
-    this.authService.signUp({email, password}).subscribe((res) => {
-      console.log(res)
+    this.authService.signUp({email, password}).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/')
+      },
+      complete: () => {},
+      error: ({error}) => {
+        if( error.message === 'EMAIL_EXISTS')
+        this.signupForm.setErrors({ userExist: true})
+      }
     })
   }
 }

@@ -8,11 +8,14 @@
         <app-input inputType="email" [control]="signupForm.controls.email" label="Email"></app-input>
         <app-input inputType="password" [control]="signupForm.controls.password" label="Password"></app-input>
         <app-input inputType="password" [control]="signupForm.controls.passwordConfirmation" label="Password confirmation"></app-input>
-        <p *ngIf="signupForm.controls.password.touched && signupForm.controls.passwordConfirmation.touched && signupForm.errors && signupForm.errors.passwordsDontMatch"
-           class="help is-danger"
-        >
-            Passwords don't match!
-        </p>
+        <div *ngIf="signupForm.controls.password.touched && signupForm.controls.passwordConfirmation.touched && signupForm.errors">
+            <p *ngIf="signupForm.errors.passwordsDontMatch" class="help is-danger">
+                Passwords don't match!
+            </p>
+            <p *ngIf="signupForm.errors.userExist" class="help is-danger">
+                This email already exists!
+            </p>
+        </div>
         <div class="field">
             <div class="control">
                 <button class="button is-link" type="submit" [disabled]="signupForm.invalid" >Submit</button>
