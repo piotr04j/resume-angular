@@ -60,15 +60,16 @@ describe('SignupComponent tests', () => {
     expect(signUp).toHaveBeenCalledWith({email, password: 'asb123@@'});
   });
 
-  it('should render error message', () => {
+  it('should render email exists error message', () => {
     authServiceStub.signUp = () => {
       return throwError({
         error: {
-          message: 'EMAIL_EXISTS'
+          error: {
+            message: 'EMAIL_EXISTS'
+          }
         }
       })
     }
-
     component.signupForm.controls['email'].setValue(email);
     component.signupForm.controls['password'].setValue( 'asb123@@');
     component.signupForm.controls['passwordConfirmation'].setValue( 'asb123@@');
@@ -79,5 +80,27 @@ describe('SignupComponent tests', () => {
     button.click()
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('p').textContent).toContain('This email already exists!');
+  });
+
+  it('should render error unknown message', () => {
+    authServiceStub.signUp = () => {
+      return throwError({
+        error: {
+          error: {
+            message: 'some error'
+          }
+        }
+      })
+    }
+    component.signupForm.controls['email'].setValue(email);
+    component.signupForm.controls['password'].setValue( 'asb123@@');
+    component.signupForm.controls['passwordConfirmation'].setValue( 'asb123@@');
+    component.signupForm.markAsDirty();
+    component.signupForm.markAllAsTouched();
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('button');
+    button.click()
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('p').textContent).toContain('We have some problems! Please try again or contact with administrator!');
   });
 });

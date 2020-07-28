@@ -15,6 +15,9 @@
             <p *ngIf="signupForm.errors.userExist" class="help is-danger">
                 This email already exists!
             </p>
+            <p *ngIf="signupForm.errors.unknownError" class="help is-danger">
+                We have some problems! Please try again or contact with administrator!
+            </p>
         </div>
         <div class="field">
             <div class="control">

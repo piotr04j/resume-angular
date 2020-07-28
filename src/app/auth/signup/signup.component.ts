@@ -47,10 +47,14 @@ export class SignupComponent implements OnInit {
       next: () => {
         this.router.navigateByUrl('/')
       },
-      complete: () => {},
+      complete: () => {
+      },
       error: ({error}) => {
-        if( error.message === 'EMAIL_EXISTS')
-        this.signupForm.setErrors({ userExist: true})
+        if (error.error.message === 'EMAIL_EXISTS') {
+          this.signupForm.setErrors({userExist: true})
+        } else {
+          this.signupForm.setErrors({unknownError: true})
+        }
       }
     })
   }
