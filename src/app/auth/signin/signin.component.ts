@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
-import {Router} from "@angular/router";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
       Validators.maxLength(20),
       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/)
     ])
-  })
+  });
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -30,22 +30,22 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     if (this.signinForm.invalid) {
-      return
+      return;
     }
 
     const { email, password } = this.signinForm.value;
-    this.authService.signIn({email, password}).subscribe({
+    this.authService.signIn({ email, password }).subscribe({
       next: () => {
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/');
       },
-      complete: () => {},
-      error: ({error}) => {
-        if(error.error.message === 'INVALID_PASSWORD' || error.error.message === 'EMAIL_NOT_FOUND') {
-          this.signinForm.setErrors({invalidCredential : true})
+      complete: () => { },
+      error: ({ error }) => {
+        if (error.error.message === 'INVALID_PASSWORD' || error.error.message === 'EMAIL_NOT_FOUND') {
+          this.signinForm.setErrors({ invalidCredential : true });
         }  else {
-          this.signinForm.setErrors({unknownError: true})
+          this.signinForm.setErrors({ unknownError: true });
         }
       }
-    })
+    });
   }
 }

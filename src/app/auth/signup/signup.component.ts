@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
-import {MatchPassword} from "../validators/match-password";
-import {Router} from "@angular/router";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { MatchPassword } from '../validators/match-password';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
   }, {
         validators: [this.matchPassword.validate]
     }
-)
+);
 
   constructor(private authService: AuthService, private matchPassword: MatchPassword, private router: Router) { }
 
@@ -39,23 +39,23 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.signupForm.invalid) {
-      return
+      return;
     }
 
     const { email, password } = this.signupForm.value;
-    this.authService.signUp({email, password}).subscribe({
+    this.authService.signUp({ email, password }).subscribe({
       next: () => {
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/');
       },
       complete: () => {
       },
-      error: ({error}) => {
+      error: ({ error }) => {
         if (error.error.message === 'EMAIL_EXISTS') {
-          this.signupForm.setErrors({userExist: true})
+          this.signupForm.setErrors({ userExist: true });
         } else {
-          this.signupForm.setErrors({unknownError: true})
+          this.signupForm.setErrors({ unknownError: true });
         }
       }
-    })
+    });
   }
 }

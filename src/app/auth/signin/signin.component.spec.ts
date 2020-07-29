@@ -1,35 +1,34 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SigninComponent } from './signin.component';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {AuthService, singinResponse, } from "../auth.service";
-import {User} from "../../../models/User";
-import {Observable, of, throwError} from "rxjs";
-import {Component, Input} from "@angular/core";
-import {Router} from "@angular/router";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AuthService, SinginResponse, } from '../auth.service';
+import { User } from '../../../models/User';
+import { Observable, of, throwError } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
-@Component({selector: 'app-input', template: ''})
+@Component({ selector: 'app-input', template: '' })
 class InputComponent {
-  @Input() control: FormControl
+  @Input() control: FormControl;
 }
 const email = 'test@gmail.com';
-const res: singinResponse =  {
-  "idToken": '123456',
+const res: SinginResponse =  {
+  idToken: '123456',
   email,
-  "refreshToken": '654321',
-  "expiresIn": '3600',
+  refreshToken: '654321',
+  expiresIn: '3600',
   localId:  '1231',
   registered: true
 };
 
 const authServiceStub = {
-  signIn(user: User): Observable<singinResponse> {
-    return of(res)
+  signIn(user: User): Observable<SinginResponse> {
+    return of(res);
   }
 };
 
 const router = {
-  navigateByUrl: () => {}
+  navigateByUrl: () => { }
 };
 
 describe('SigninComponent', () => {
@@ -40,7 +39,7 @@ describe('SigninComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SigninComponent, InputComponent ],
       imports: [ ReactiveFormsModule ],
-      providers: [{ provide: AuthService, useValue: authServiceStub }, {provide: Router, useValue: router}]
+      providers: [{ provide: AuthService, useValue: authServiceStub }, { provide: Router, useValue: router }]
     })
     .compileComponents();
   }));
@@ -53,13 +52,13 @@ describe('SigninComponent', () => {
 
   it('should render form', () => {
     const signIn = spyOn(authServiceStub, 'signIn').and.returnValue(of(res));
-    component.signinForm.controls['email'].setValue(email);
-    component.signinForm.controls['password'].setValue( 'asb123@#');
+    component.signinForm.controls.email.setValue(email);
+    component.signinForm.controls.password.setValue('asb123@#');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
-    button.click()
+    button.click();
     expect(signIn).toHaveBeenCalledTimes(1);
-    expect(signIn).toHaveBeenCalledWith({email, password: 'asb123@#'});
+    expect(signIn).toHaveBeenCalledWith({ email, password: 'asb123@#' });
   });
 
   it('should render wrong credential unknown message', () => {
@@ -70,13 +69,13 @@ describe('SigninComponent', () => {
             message: 'INVALID_PASSWORD'
           }
         }
-      })
-    }
-    component.signinForm.controls['email'].setValue(email);
-    component.signinForm.controls['password'].setValue( 'asb123@@');
+      });
+    };
+    component.signinForm.controls.email.setValue(email);
+    component.signinForm.controls.password.setValue('asb123@@');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
-    button.click()
+    button.click();
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('p').textContent).toContain('Email or password is incorrect!');
   });
@@ -89,14 +88,15 @@ describe('SigninComponent', () => {
             message: 'some error'
           }
         }
-      })
-    }
-    component.signinForm.controls['email'].setValue(email);
-    component.signinForm.controls['password'].setValue( 'asb123@@');
+      });
+    };
+    component.signinForm.controls.email.setValue(email);
+    component.signinForm.controls.password.setValue('asb123@@');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
-    button.click()
+    button.click();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('p').textContent).toContain('We have some problems! Please try again or contact with administrator!');
+    expect(fixture.nativeElement.querySelector('p').textContent)
+        .toContain('We have some problems! Please try again or contact with administrator!');
   });
 });

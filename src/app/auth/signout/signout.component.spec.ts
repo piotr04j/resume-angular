@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignoutComponent } from './signout.component';
-import {Router} from "@angular/router";
-import {AuthService} from "../auth.service";
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 describe('SignoutComponent', () => {
   let component: SignoutComponent;
   let fixture: ComponentFixture<SignoutComponent>;
-  let mockRouter = {
+  const mockRouter = {
     navigateByUrl: jasmine.createSpy('navigateByUrl')
-  }
-  let authService = {
+  };
+  const authService = {
     signOut: jasmine.createSpy()
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -32,6 +32,6 @@ describe('SignoutComponent', () => {
   });
 
   it('should logout and redirect to home page', () => {
-    expect (mockRouter.navigateByUrl).toHaveBeenCalledWith ('/')
+    expect (mockRouter.navigateByUrl).toHaveBeenCalledWith ('/');
   });
 });
