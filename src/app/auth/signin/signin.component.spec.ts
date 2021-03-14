@@ -15,10 +15,10 @@ const email = 'test@gmail.com';
 const res: SinginResponse =  {
   idToken: '123456',
   email,
-  refreshToken: '654321',
   expiresIn: '3600',
   localId:  '1231',
-  registered: true
+  registered: true,
+  refreshToken: '12345qwe'
 };
 
 const authServiceStub = {

@@ -34,18 +34,18 @@ export class SigninComponent implements OnInit {
     }
 
     const { email, password } = this.signinForm.value;
-    this.authService.signIn({ email, password }).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/');
-      },
-      complete: () => { },
-      error: ({ error }) => {
-        if (error.error.message === 'INVALID_PASSWORD' || error.error.message === 'EMAIL_NOT_FOUND') {
-          this.signinForm.setErrors({ invalidCredential : true });
-        }  else {
-          this.signinForm.setErrors({ unknownError: true });
+    this.authService.signIn({ email, password }).subscribe(
+        () => {
+          this.router.navigateByUrl('/');
+        },
+        (err) => {
+          console.log(err)
+          if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+            this.signinForm.setErrors({ invalidCredential : true });
+          } else {
+            this.signinForm.setErrors({ unknownError: true });
+          }
         }
-      }
-    });
+    )
   }
 }

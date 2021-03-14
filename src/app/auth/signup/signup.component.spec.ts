@@ -16,9 +16,12 @@ const email = 'test@gmail.com';
 const res: SingupResponse = {
   idToken: '123456',
   email,
-  refreshToken: '654321',
+  localId:  '1231',
   expiresIn: '3600',
+  refreshToken: '12345qwe'
+
 };
+
 const authServiceStub = {
   signUp(user: User): Observable<SingupResponse> {
     return of(res);

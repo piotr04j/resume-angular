@@ -43,19 +43,17 @@ export class SignupComponent implements OnInit {
     }
 
     const { email, password } = this.signupForm.value;
-    this.authService.signUp({ email, password }).subscribe({
-      next: () => {
+    this.authService.signUp({ email, password }).subscribe(
+      () => {
         this.router.navigateByUrl('/');
       },
-      complete: () => {
-      },
-      error: ({ error }) => {
-        if (error.error.message === 'EMAIL_EXISTS') {
+      ( err) => {
+        if (err.code === 'auth/email-already-in-use') {
           this.signupForm.setErrors({ userExist: true });
         } else {
           this.signupForm.setErrors({ unknownError: true });
         }
       }
-    });
+    );
   }
 }
