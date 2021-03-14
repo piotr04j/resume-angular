@@ -1,0 +1,114 @@
+<form [formGroup]="resumeForm" (ngSubmit)="onSubmit()" class="is-half is-centered">
+    <div>
+        <div>
+            name
+            <input type="text" formControlName="name"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            birthDay
+            <input type="text" formControlName="birthDay"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            phoneNumber
+            <input type="text" formControlName="phoneNumber"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            email
+            <input type="email" formControlName="email"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            description
+            <input type="text" formControlName="description"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            linkedUrl
+            <input type="text" formControlName="linkedUrl"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            portfolioUrl
+            <input type="text" formControlName="portfolioUrl"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            photo
+            <input type="file" (change)="onPhotoChanged($event)" formControlName="photo"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            educations
+            <span *ngFor="let control of getControls('education'); index as i">
+                <hr />
+                <button (click)="removeGroupInputs('educationFormArr', i)" type="button">
+                    Delete education {{ i }}
+                </button>
+                 <button (click)="addGroupInputs('educationFormArr', 'education')" type="button">
+                    Add education {{ i }}
+                </button>
+                <input [formControl]="control.get('name')" />
+                <input [formControl]="control.get('date')" />
+                <input [formControl]="control.get('description')" />
+            </span>
+        </div>
+    </div>
+    <div>
+        <div>
+            work
+            <span *ngFor="let formGroup of getControls('experience'); index as i">
+                <hr />
+                <button (click)="addGroupInputs('experienceFormArr', 'experience')" type="button">Add experience</button>
+                <button (click)="removeGroupInputs('experienceFormArr', i)" type="button">Delete experience</button>
+                <input [formControl]="formGroup.get('name')" />
+                <input [formControl]="formGroup.get('date')" />
+                <input [formControl]="formGroup.get('description')" />
+            </span>
+        </div>
+    </div>
+    <div>
+        <div>
+            skills
+            <span *ngFor="let control of getControls('skills'); index as i">
+                <hr />
+                <button (click)="addGroupInputs('skillsFormArr', 'skills')" type="button">Add skills</button>
+                <button (click)="removeGroupInputs('skillsFormArr', i)" type="button">Delete skills</button>
+                <input [formControl]="control.get('skill')" />
+                <input [formControl]="control.get('level')" />
+            </span>
+        </div>
+    </div>
+    <div>
+        <div>
+            additionalInformation
+            <span *ngFor="let control of getControls('additionalInformation'); index as i">
+                <hr />
+                <button (click)="addGroupInputs('additionalInformationFormArr', 'additionalInformation')" type="button">Add information</button>
+                <button (click)="removeGroupInputs('additionalInformationFormArr', i)" type="button">Delete information</button>
+                <input [formControl]="control.get('name')" />
+                <input [formControl]="control.get('description')" />
+            </span>
+        </div>
+    </div>
+    <div>
+        <div>
+            lawDisclaimer
+            <input type="text" formControlName="lawDisclaimer"/>
+        </div>
+    </div>
+    <button type="submit">
+        Submit
+    </button>
+    <div id="photo"></div>
+</form>
