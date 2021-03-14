@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService, Signed } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,9 +11,8 @@ export class MenuComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.signedIn$.subscribe(value => {
+    this.authService.signedIn$.subscribe((value: boolean) => {
       this.signedIn = value;
     });
   }
-
 }
