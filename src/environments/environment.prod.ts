@@ -1,6 +1,13 @@
 export const environment = {
   production: true,
-  authFirebaseKey: '$FIREBASE_AUTH_API_KEY'
+  authFirebaseKey: '',
+  firebaseConfig: {
+    authFirebaseKey: '$FIREBASE_AUTH_API_KEY',
+    authDomain: null,
+    storageBucket: null,
+    projectId: null
+  }
 };
+
 
 
